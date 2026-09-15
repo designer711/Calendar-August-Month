@@ -1,0 +1,3414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#123C69">
+<title>Young Global Delegates | Mini MUN</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --navy:#123C69;
+    --blue:#1769AA;
+    --sky:#EAF6FF;
+    --gold:#F5B942;
+    --green:#2E8B70;
+    --dark:#17324D;
+    --muted:#6D7C8D;
+    --white:#fff;
+    --light:#F5F8FB;
+    --red:#D9534F;
+    --red-light:#FFF1F0;
+    --green-light:#EFF9F5;
+    --shadow:0 12px 35px rgba(18,60,105,.12);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:
+        radial-gradient(circle at top left,#E9F6FF 0,#F7FBFE 35%,#F5F7FA 100%);
+    color:var(--dark);
+    min-height:100vh;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+}
+
+.app{
+    width:100%;
+    max-width:980px;
+    margin:auto;
+    padding:18px;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    background:linear-gradient(135deg,#123C69,#1769AA);
+    color:white;
+    border-radius:26px;
+    padding:28px 24px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+}
+
+.header:before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    border:35px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    right:-70px;
+    top:-100px;
+}
+
+.header:after{
+    content:"";
+    position:absolute;
+    width:140px;
+    height:140px;
+    border:20px solid rgba(245,185,66,.15);
+    border-radius:50%;
+    left:-80px;
+    bottom:-80px;
+}
+
+.logo{
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    opacity:.85;
+    position:relative;
+    z-index:2;
+}
+
+.header h1{
+    font-size:clamp(28px,5vw,46px);
+    line-height:1.05;
+    margin:8px 0;
+    position:relative;
+    z-index:2;
+}
+
+.header p{
+    font-size:16px;
+    opacity:.9;
+    max-width:650px;
+    line-height:1.5;
+    position:relative;
+    z-index:2;
+}
+
+/* ================= PROGRESS ================= */
+
+.progress-wrap{
+    background:white;
+    border-radius:18px;
+    padding:15px 18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+    margin-bottom:18px;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:9px;
+    color:var(--muted);
+}
+
+.progress{
+    height:9px;
+    background:#E6EDF3;
+    border-radius:99px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:16.66%;
+    background:linear-gradient(90deg,var(--blue),var(--gold));
+    border-radius:99px;
+    transition:.4s ease;
+}
+
+/* ================= SCREENS ================= */
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+    animation:fadeIn .35s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* ================= CARD ================= */
+
+.card{
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    box-shadow:var(--shadow);
+    margin-bottom:18px;
+}
+
+.card h2{
+    font-size:25px;
+    margin-bottom:7px;
+    color:var(--navy);
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.55;
+    margin-bottom:22px;
+}
+
+/* ================= COUNTRY ================= */
+
+.country-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.country{
+    border:2px solid #E8EEF3;
+    background:#fff;
+    border-radius:20px;
+    padding:20px 14px;
+    text-align:center;
+    transition:.2s;
+    position:relative;
+}
+
+.country:hover{
+    transform:translateY(-3px);
+    border-color:#A9D8F4;
+    box-shadow:0 8px 20px rgba(23,105,170,.1);
+}
+
+.country.selected{
+    border-color:var(--blue);
+    background:#EFF8FF;
+}
+
+.country .flag{
+    font-size:44px;
+    display:block;
+    margin-bottom:9px;
+}
+
+.country strong{
+    display:block;
+    color:var(--dark);
+    margin-bottom:4px;
+}
+
+.country small{
+    color:var(--muted);
+}
+
+.check{
+    display:none;
+    position:absolute;
+    right:9px;
+    top:9px;
+    background:var(--blue);
+    color:white;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    font-size:14px;
+    align-items:center;
+    justify-content:center;
+}
+
+.country.selected .check{
+    display:flex;
+}
+
+/* ================= PROFILE ================= */
+
+.country-profile{
+    display:grid;
+    grid-template-columns:170px 1fr;
+    gap:22px;
+    align-items:center;
+    background:linear-gradient(135deg,#F1FAFF,#FFFFFF);
+    border:1px solid #DDECF5;
+    border-radius:22px;
+    padding:22px;
+    margin-bottom:20px;
+}
+
+.big-flag{
+    background:white;
+    border-radius:20px;
+    min-height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:80px;
+    box-shadow:0 7px 20px rgba(0,0,0,.06);
+}
+
+.profile-info h3{
+    font-size:28px;
+    color:var(--navy);
+    margin-bottom:10px;
+}
+
+.info-row{
+    margin:8px 0;
+    line-height:1.5;
+}
+
+.info-row span{
+    font-weight:800;
+    color:var(--blue);
+}
+
+.fact-box{
+    background:#FFF9EA;
+    border-left:5px solid var(--gold);
+    padding:15px;
+    border-radius:13px;
+    margin-top:12px;
+}
+
+.issue-box{
+    background:#EFF9F5;
+    border-left:5px solid var(--green);
+    padding:15px;
+    border-radius:13px;
+    margin-top:12px;
+}
+
+.issue-box strong,
+.fact-box strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+/* ================= ISSUES ================= */
+
+.issue-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.issue{
+    border:2px solid #E6EDF2;
+    border-radius:20px;
+    background:white;
+    padding:20px;
+    transition:.2s;
+    text-align:left;
+}
+
+.issue:hover{
+    transform:translateY(-3px);
+}
+
+.issue.selected{
+    border-color:var(--green);
+    background:#F0FAF6;
+}
+
+.issue-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.issue h3{
+    color:var(--navy);
+    margin-bottom:5px;
+}
+
+.issue p{
+    color:var(--muted);
+    line-height:1.45;
+}
+
+/* ================= POSITION ================= */
+
+.prompt{
+    background:linear-gradient(135deg,#123C69,#1769AA);
+    color:white;
+    border-radius:20px;
+    padding:22px;
+    margin:18px 0;
+}
+
+.prompt small{
+    opacity:.8;
+    display:block;
+    margin-bottom:7px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-weight:700;
+}
+
+.prompt h3{
+    font-size:23px;
+    line-height:1.3;
+}
+
+.point-list{
+    display:grid;
+    gap:12px;
+}
+
+.point{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:#F6F9FC;
+    border-radius:15px;
+    padding:15px;
+}
+
+.point-number{
+    min-width:30px;
+    height:30px;
+    background:var(--gold);
+    color:#553D00;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+}
+
+/* ================= RECORDING ================= */
+
+.record-card{
+    background:linear-gradient(180deg,#FFFFFF,#F9FCFE);
+}
+
+.permission-box{
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:20px;
+    border:2px solid #DCE8F0;
+    background:#F7FAFC;
+}
+
+.permission-box.granted{
+    background:var(--green-light);
+    border-color:#B8E1D3;
+}
+
+.permission-box.denied{
+    background:var(--red-light);
+    border-color:#F1C0BC;
+}
+
+.permission-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:900;
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.permission-icon{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:white;
+    font-size:22px;
+    flex:none;
+}
+
+.permission-text{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.55;
+    margin-bottom:14px;
+}
+
+.permission-help{
+    display:none;
+    margin-top:14px;
+    padding:14px;
+    background:white;
+    border-radius:14px;
+    font-size:13px;
+    line-height:1.55;
+    color:#596979;
+}
+
+.permission-box.denied .permission-help{
+    display:block;
+}
+
+.permission-help strong{
+    color:var(--dark);
+}
+
+.permission-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.record-area{
+    text-align:center;
+    padding:5px 0 20px;
+}
+
+.mic{
+    width:115px;
+    height:115px;
+    border-radius:50%;
+    background:#EAF6FF;
+    border:7px solid #D3ECFA;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    margin:10px auto 15px;
+    transition:.2s;
+}
+
+.mic.ready{
+    background:#EFF9F5;
+    border-color:#C9E9DD;
+}
+
+.mic.recording{
+    background:#FFF0EF;
+    border-color:#FFD0CC;
+    animation:pulse 1.3s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1)
+    }
+    50%{
+        transform:scale(1.07)
+    }
+}
+
+.timer{
+    font-size:38px;
+    font-weight:900;
+    color:var(--navy);
+    letter-spacing:2px;
+    margin:10px 0;
+}
+
+.timer-note{
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+.record-status{
+    min-height:25px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.recording-guide{
+    background:#F7FAFC;
+    border-radius:18px;
+    padding:18px;
+    text-align:left;
+    margin-top:18px;
+}
+
+.recording-guide h4{
+    margin-bottom:9px;
+}
+
+.recording-guide ul{
+    padding-left:20px;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+/* ================= BUTTONS ================= */
+
+.actions{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+    border-radius:14px;
+    padding:14px 20px;
+    font-weight:800;
+    transition:.2s;
+    min-height:50px;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn:active{
+    transform:scale(.98);
+}
+
+.btn-primary{
+    background:var(--navy);
+    color:white;
+    flex:1;
+}
+
+.btn-gold{
+    background:var(--gold);
+    color:#4D3700;
+    flex:1;
+}
+
+.btn-green{
+    background:var(--green);
+    color:white;
+    flex:1;
+}
+
+.btn-light{
+    background:#EDF3F7;
+    color:var(--dark);
+}
+
+.btn-danger{
+    background:var(--red);
+    color:white;
+    flex:1;
+}
+
+.btn-blue{
+    background:var(--blue);
+    color:white;
+}
+
+.btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* ================= CONSENT ================= */
+
+.consent{
+    background:#FFF9EA;
+    border:1px solid #F4D98B;
+    border-radius:18px;
+    padding:18px;
+    margin-top:18px;
+}
+
+.checkbox-row{
+    display:flex;
+    gap:11px;
+    align-items:flex-start;
+    line-height:1.5;
+    font-size:14px;
+}
+
+.checkbox-row input{
+    width:20px;
+    height:20px;
+    margin-top:2px;
+    accent-color:var(--green);
+    flex:none;
+}
+
+/* ================= FINAL ================= */
+
+.final-card{
+    text-align:center;
+}
+
+.delegate{
+    border-radius:25px;
+    background:linear-gradient(135deg,#123C69,#1769AA);
+    color:white;
+    padding:34px 20px;
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.delegate:after{
+    content:"🌐";
+    position:absolute;
+    font-size:150px;
+    opacity:.08;
+    right:-15px;
+    bottom:-40px;
+}
+
+.delegate small{
+    text-transform:uppercase;
+    letter-spacing:2px;
+    opacity:.8;
+}
+
+.delegate h1{
+    font-size:clamp(32px,7vw,58px);
+    margin:8px 0;
+    position:relative;
+    z-index:2;
+}
+
+.delegate p{
+    position:relative;
+    z-index:2;
+}
+
+/* ================= CERTIFICATE ================= */
+
+.certificate-section{
+    border-top:1px solid #E6EDF2;
+    padding-top:22px;
+    margin-top:22px;
+}
+
+.input-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+    margin-top:14px;
+}
+
+.input{
+    width:100%;
+    border:2px solid #E3EAF0;
+    border-radius:13px;
+    padding:14px;
+    outline:none;
+    background:white;
+}
+
+.input:focus{
+    border-color:var(--blue);
+}
+
+.certificate-btn{
+    width:100%;
+    margin-top:14px;
+    background:linear-gradient(135deg,#D99B18,#F5C95E);
+    color:#4A3500;
+    border:0;
+    border-radius:16px;
+    padding:17px;
+    font-weight:900;
+    font-size:16px;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translate(-50%,120px);
+    background:#17324D;
+    color:white;
+    padding:13px 19px;
+    border-radius:13px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    transition:.3s;
+    z-index:1000;
+    max-width:90%;
+    text-align:center;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .app{
+        padding:11px;
+    }
+
+    .header{
+        padding:23px 18px;
+        border-radius:21px;
+    }
+
+    .header h1{
+        font-size:31px;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:20px;
+    }
+
+    .country-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .issue-grid{
+        grid-template-columns:1fr;
+    }
+
+    .country-profile{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    .big-flag{
+        min-height:115px;
+        font-size:65px;
+    }
+
+    .input-grid{
+        grid-template-columns:1fr;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .permission-actions{
+        flex-direction:column;
+    }
+
+    .permission-actions .btn{
+        width:100%;
+    }
+}
+
+@media(max-width:380px){
+
+    .country-grid{
+        grid-template-columns:1fr;
+    }
+
+    .country{
+        padding:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+    <div class="logo">🌐 Young Global Delegates</div>
+    <h1>Mini Model United Nations</h1>
+    <p>
+        Choose a country, understand a global issue and speak like a young world leader.
+    </p>
+</header>
+
+<div class="progress-wrap">
+    <div class="progress-top">
+        <span id="progressText">Step 1 of 6</span>
+        <span id="progressPercent">17%</span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</div>
+
+
+<!-- =====================================================
+STEP 1
+===================================================== -->
+
+<section class="screen active" id="screen1">
+
+<div class="card">
+
+<h2>🌍 Choose Your Country</h2>
+
+<p class="subtitle">
+You are about to become a young delegate. Choose one country you would like to represent.
+</p>
+
+<div class="country-grid" id="countryGrid"></div>
+
+<div class="actions">
+<button class="btn btn-primary" id="countryNext" disabled>
+Continue →
+</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+STEP 2
+===================================================== -->
+
+<section class="screen" id="screen2">
+
+<div class="card">
+
+<h2>🏛️ Meet Your Country</h2>
+
+<p class="subtitle">
+Learn a few simple things about the country you represent.
+</p>
+
+<div class="country-profile">
+
+<div class="big-flag" id="profileFlag">🌍</div>
+
+<div class="profile-info">
+
+<h3 id="profileCountry">Country</h3>
+
+<div class="info-row">
+<span>Capital:</span>
+<b id="profileCapital">—</b>
+</div>
+
+<div class="fact-box">
+<strong>💡 Interesting Facts</strong>
+<div id="profileFacts">—</div>
+</div>
+
+<div class="issue-box">
+<strong>🌱 Relevant Issue</strong>
+<div id="profileIssue">—</div>
+</div>
+
+</div>
+</div>
+
+<div class="actions">
+
+<button class="btn btn-light" onclick="goTo(1)">
+← Back
+</button>
+
+<button class="btn btn-primary" onclick="goTo(3)">
+Choose an Issue →
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+STEP 3
+===================================================== -->
+
+<section class="screen" id="screen3">
+
+<div class="card">
+
+<h2>💡 Choose a Global Issue</h2>
+
+<p class="subtitle">
+Pick one problem that countries around the world can work together to solve.
+</p>
+
+<div class="issue-grid" id="issueGrid"></div>
+
+<div class="actions">
+
+<button class="btn btn-light" onclick="goTo(2)">
+← Back
+</button>
+
+<button class="btn btn-primary" id="issueNext" disabled>
+Prepare My Position →
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+STEP 4
+===================================================== -->
+
+<section class="screen" id="screen4">
+
+<div class="card">
+
+<h2>🧠 Prepare Your Position</h2>
+
+<p class="subtitle">
+A good delegate thinks about possible solutions. Use these ideas to prepare what you want to say.
+</p>
+
+<div class="prompt">
+
+<small>Your challenge</small>
+
+<h3>
+“What should countries do about this problem?”
+</h3>
+
+</div>
+
+<div class="point-list">
+
+<div class="point">
+<div class="point-number">1</div>
+
+<div>
+<strong>Think about people</strong>
+<p>How can your idea help children, families and communities?</p>
+</div>
+
+</div>
+
+<div class="point">
+<div class="point-number">2</div>
+
+<div>
+<strong>Think about teamwork</strong>
+<p>How can countries work together instead of solving the problem alone?</p>
+</div>
+
+</div>
+
+<div class="point">
+<div class="point-number">3</div>
+
+<div>
+<strong>Think about action</strong>
+<p>What is one practical thing countries could start doing?</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="prompt"
+style="margin-top:20px;background:linear-gradient(135deg,#2E8B70,#47A98A);">
+
+<small>Remember</small>
+
+<h3>
+You don't need a perfect speech. Speak clearly, confidently and share your idea.
+</h3>
+
+</div>
+
+<div class="actions">
+
+<button class="btn btn-light" onclick="goTo(3)">
+← Back
+</button>
+
+<button class="btn btn-primary" onclick="goTo(5)">
+🎙️ Go to Recording →
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+STEP 5
+===================================================== -->
+
+<section class="screen" id="screen5">
+
+<div class="card record-card">
+
+<h2>🎙️ Speak Like a Delegate</h2>
+
+<p class="subtitle">
+Record a <strong>30–60 second</strong> response. Introduce your country, explain the problem and share your solution.
+</p>
+
+
+<!-- MICROPHONE PERMISSION PANEL -->
+
+<div class="permission-box" id="permissionBox">
+
+<div class="permission-title">
+
+<div class="permission-icon" id="permissionIcon">
+🔐
+</div>
+
+<span id="permissionTitle">
+Microphone Permission Needed
+</span>
+
+</div>
+
+<div class="permission-text" id="permissionText">
+
+Before recording, you need to allow this webpage to use your microphone.
+Your recording will stay on this device unless you choose to save or share it.
+
+</div>
+
+
+<div class="permission-actions">
+
+<button
+class="btn btn-blue"
+id="permissionBtn"
+onclick="requestMicrophonePermission()">
+
+🎙️ Allow Microphone
+
+</button>
+
+<button
+class="btn btn-light"
+id="checkPermissionBtn"
+onclick="checkMicrophonePermission()"
+style="display:none;">
+
+🔄 Check Again
+
+</button>
+
+</div>
+
+
+<div class="permission-help" id="permissionHelp">
+
+<strong>Microphone access appears blocked.</strong>
+
+<br><br>
+
+<b>Android / Chrome:</b><br>
+Tap the 🔒 icon near the website address → Permissions →
+Microphone → Allow. Then return to this page and tap
+<strong>Check Again</strong>.
+
+<br><br>
+
+<b>iPhone / Safari:</b><br>
+Open iPhone Settings → Safari → Microphone and allow access,
+then return to this webpage. Depending on your iOS version,
+you may also be able to change the microphone permission from
+the website settings menu.
+
+<br><br>
+
+<b>Important:</b> The webpage must normally be opened using
+HTTPS. Microphone access may not work from an ordinary
+<code>http://</code> website.
+</div>
+
+</div>
+
+
+<!-- RECORDING UI -->
+
+<div class="record-area">
+
+<div class="mic" id="micIcon">
+🔒
+</div>
+
+<div class="timer" id="timer">
+00:00
+</div>
+
+<div class="timer-note">
+Minimum 30 seconds • Maximum 60 seconds
+</div>
+
+<div class="record-status" id="recordStatus">
+Allow microphone access above before recording.
+</div>
+
+
+<button
+class="btn btn-primary"
+id="recordBtn"
+disabled>
+
+🔐 Allow Microphone First
+
+</button>
+
+
+<div class="actions"
+id="recordActions"
+style="display:none;">
+
+<button class="btn btn-light" id="playBtn">
+▶ Play
+</button>
+
+<button class="btn btn-gold" id="saveBtn">
+⬇ Save Recording
+</button>
+
+<button class="btn btn-light" id="shareBtn">
+↗ Share
+</button>
+
+</div>
+
+
+<audio
+id="audioPlayer"
+controls
+style="width:100%;display:none;margin-top:18px;">
+</audio>
+
+
+<div class="recording-guide">
+
+<h4>💬 A simple way to begin</h4>
+
+<ul>
+
+<li>
+“Hello, I am the delegate of
+<span id="guideCountry">my country</span>.”
+</li>
+
+<li>
+“The issue I would like to discuss is
+<span id="guideIssue">this issue</span>.”
+</li>
+
+<li>
+“Countries should work together by…”
+</li>
+
+<li>
+“Thank you.”
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- CONSENT -->
+
+<div class="consent">
+
+<label class="checkbox-row">
+
+<input type="checkbox" id="guardianConsent">
+
+<span>
+
+<strong>Parent/Guardian Consent:</strong>
+
+I confirm that I am the parent/guardian of the child and give
+permission for this response to be considered for school
+publication, including the school's social-media channels,
+if selected.
+
+</span>
+
+</label>
+
+</div>
+
+
+<div class="actions">
+
+<button class="btn btn-light" onclick="goTo(4)">
+← Back
+</button>
+
+<button
+class="btn btn-primary"
+id="finishBtn"
+disabled>
+
+Complete My MUN →
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+STEP 6
+===================================================== -->
+
+<section class="screen" id="screen6">
+
+<div class="card final-card">
+
+<div class="delegate">
+
+<small>Young Global Delegate</small>
+
+<h1>
+Delegate:
+<span id="finalCountry">Country</span>
+</h1>
+
+<p id="finalIssue">
+Global Issue
+</p>
+
+</div>
+
+<h2>🎉 Mission Complete!</h2>
+
+<p class="subtitle">
+
+You chose a country, explored a global issue, prepared a
+position and recorded your response.
+
+<strong>Well done, Delegate!</strong>
+
+</p>
+
+
+<div class="certificate-section">
+
+<h2>🏅 Get Your Certificate</h2>
+
+<p class="subtitle">
+
+Enter your details to create your personalised Young Global
+Delegate certificate.
+
+</p>
+
+
+<div class="input-grid">
+
+<input
+class="input"
+id="studentName"
+type="text"
+placeholder="Your Name"
+maxlength="60"
+>
+
+<input
+class="input"
+id="studentClass"
+type="text"
+placeholder="Class / Profile"
+maxlength="40"
+>
+
+</div>
+
+
+<button
+class="certificate-btn"
+onclick="generateCertificate()">
+
+🏅 Generate & Download Certificate
+
+</button>
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="btn btn-green"
+id="publicSubmitBtn">
+
+📤 Submit for School Consideration
+
+</button>
+
+<button
+class="btn btn-light"
+onclick="restartActivity()">
+
+🔄 Start Again
+
+</button>
+
+</div>
+
+
+<p style="
+font-size:12px;
+color:#8A98A5;
+margin-top:16px;
+line-height:1.5;
+">
+
+Public-use submissions require parent/guardian consent.
+This standalone activity does not automatically upload or
+publish recordings.
+
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+DATA
+========================================================= */
+
+const countries = [
+
+{
+name:"India",
+flag:"🇮🇳",
+capital:"New Delhi",
+facts:"India is home to the Himalayas and has one of the world's largest populations.",
+issue:"Access to education"
+},
+
+{
+name:"Japan",
+flag:"🇯🇵",
+capital:"Tokyo",
+facts:"Japan is made up of thousands of islands and is famous for its advanced technology.",
+issue:"Plastic waste"
+},
+
+{
+name:"Brazil",
+flag:"🇧🇷",
+capital:"Brasília",
+facts:"Brazil is the largest country in South America and is home to much of the Amazon rainforest.",
+issue:"Climate and the environment"
+},
+
+{
+name:"Kenya",
+flag:"🇰🇪",
+capital:"Nairobi",
+facts:"Kenya is known for its wildlife and beautiful landscapes, including the Great Rift Valley.",
+issue:"Clean water"
+},
+
+{
+name:"Canada",
+flag:"🇨🇦",
+capital:"Ottawa",
+facts:"Canada has the world's longest coastline and many freshwater lakes.",
+issue:"Climate and the environment"
+},
+
+{
+name:"Australia",
+flag:"🇦🇺",
+capital:"Canberra",
+facts:"Australia is both a country and a continent and is home to unique animals such as kangaroos.",
+issue:"Climate and the environment"
+},
+
+{
+name:"Egypt",
+flag:"🇪🇬",
+capital:"Cairo",
+facts:"Egypt is home to the ancient pyramids and the Nile, one of the world's famous rivers.",
+issue:"Clean water"
+},
+
+{
+name:"France",
+flag:"🇫🇷",
+capital:"Paris",
+facts:"France is famous for its art, architecture and cultural heritage.",
+issue:"Plastic waste"
+},
+
+{
+name:"South Africa",
+flag:"🇿🇦",
+capital:"Pretoria",
+facts:"South Africa has three capital cities and is known for its diverse wildlife.",
+issue:"Access to education"
+}
+
+];
+
+
+const issues = [
+
+{
+name:"Clean Water",
+icon:"💧",
+desc:"How can everyone get safe and clean water?",
+points:[
+"Protect rivers, lakes and groundwater.",
+"Help communities access safe drinking water.",
+"Reduce water pollution and waste."
+]
+},
+
+{
+name:"Plastic Waste",
+icon:"♻️",
+desc:"How can countries reduce plastic pollution?",
+points:[
+"Use less single-use plastic.",
+"Improve recycling and reuse.",
+"Keep oceans, rivers and communities clean."
+]
+},
+
+{
+name:"Access to Education",
+icon:"📚",
+desc:"How can every child get a good education?",
+points:[
+"Make schools accessible to every child.",
+"Support teachers and learning resources.",
+"Use technology to reach more learners."
+]
+},
+
+{
+name:"Climate & Environment",
+icon:"🌱",
+desc:"How can countries protect our shared planet?",
+points:[
+"Use cleaner sources of energy.",
+"Protect forests and wildlife.",
+"Work together to reduce pollution."
+]
+}
+
+];
+
+
+/* =========================================================
+STATE
+========================================================= */
+
+let selectedCountry = null;
+let selectedIssue = null;
+
+let currentStep = 1;
+
+let microphoneStream = null;
+let microphonePermission = false;
+
+let mediaRecorder = null;
+let audioChunks = [];
+let audioBlob = null;
+let audioURL = null;
+
+let recordingStart = 0;
+let timerInterval = null;
+let recordingSeconds = 0;
+
+
+/* =========================================================
+INITIALIZE
+========================================================= */
+
+function init(){
+
+const countryGrid =
+document.getElementById("countryGrid");
+
+countries.forEach((country,index)=>{
+
+const el =
+document.createElement("button");
+
+el.className="country";
+
+el.innerHTML=`
+
+<span class="check">✓</span>
+
+<span class="flag">${country.flag}</span>
+
+<strong>${country.name}</strong>
+
+<small>${country.capital}</small>
+
+`;
+
+el.onclick=()=>{
+selectCountry(index);
+};
+
+countryGrid.appendChild(el);
+
+});
+
+
+const issueGrid =
+document.getElementById("issueGrid");
+
+issues.forEach((issue,index)=>{
+
+const el =
+document.createElement("button");
+
+el.className="issue";
+
+el.innerHTML=`
+
+<div class="issue-icon">${issue.icon}</div>
+
+<h3>${issue.name}</h3>
+
+<p>${issue.desc}</p>
+
+`;
+
+el.onclick=()=>{
+selectIssue(index);
+};
+
+issueGrid.appendChild(el);
+
+});
+
+
+document.getElementById("countryNext").onclick=()=>{
+goTo(2);
+};
+
+
+document.getElementById("issueNext").onclick=()=>{
+
+updatePosition();
+
+goTo(4);
+
+};
+
+
+document.getElementById("recordBtn").onclick=
+toggleRecording;
+
+
+document.getElementById("playBtn").onclick=()=>{
+
+const player =
+document.getElementById("audioPlayer");
+
+player.play();
+
+};
+
+
+document.getElementById("saveBtn").onclick=
+saveRecording;
+
+
+document.getElementById("shareBtn").onclick=
+shareRecording;
+
+
+document.getElementById("guardianConsent").onchange=
+updateFinishButton;
+
+
+document.getElementById("finishBtn").onclick=
+finishActivity;
+
+
+document.getElementById("publicSubmitBtn").onclick=
+submitForConsideration;
+
+
+/*
+Try to detect an already granted permission.
+This does NOT request permission automatically.
+*/
+
+checkMicrophonePermission(true);
+
+}
+
+
+/* =========================================================
+COUNTRY
+========================================================= */
+
+function selectCountry(index){
+
+selectedCountry=countries[index];
+
+document.querySelectorAll(".country")
+.forEach((el,i)=>{
+
+el.classList.toggle(
+"selected",
+i===index
+);
+
+});
+
+document.getElementById("countryNext").disabled=false;
+
+}
+
+
+/* =========================================================
+ISSUE
+========================================================= */
+
+function selectIssue(index){
+
+selectedIssue=issues[index];
+
+document.querySelectorAll(".issue")
+.forEach((el,i)=>{
+
+el.classList.toggle(
+"selected",
+i===index
+);
+
+});
+
+document.getElementById("issueNext").disabled=false;
+
+}
+
+
+/* =========================================================
+PROFILE
+========================================================= */
+
+function updateProfile(){
+
+if(!selectedCountry)return;
+
+document.getElementById("profileFlag")
+.textContent=selectedCountry.flag;
+
+document.getElementById("profileCountry")
+.textContent=selectedCountry.name;
+
+document.getElementById("profileCapital")
+.textContent=selectedCountry.capital;
+
+document.getElementById("profileFacts")
+.textContent=selectedCountry.facts;
+
+document.getElementById("profileIssue")
+.textContent=selectedCountry.issue;
+
+}
+
+
+/* =========================================================
+POSITION
+========================================================= */
+
+function updatePosition(){
+
+if(!selectedIssue)return;
+
+const list=
+document.querySelectorAll(".point p");
+
+selectedIssue.points.forEach((text,index)=>{
+
+if(list[index]){
+list[index].textContent=text;
+}
+
+});
+
+
+document.getElementById("guideCountry")
+.textContent=
+selectedCountry ?
+selectedCountry.name :
+"your country";
+
+
+document.getElementById("guideIssue")
+.textContent=
+selectedIssue ?
+selectedIssue.name.toLowerCase() :
+"this issue";
+
+}
+
+
+/* =========================================================
+NAVIGATION
+========================================================= */
+
+function goTo(step){
+
+if(step===2 && !selectedCountry)return;
+
+if(step===3 && !selectedCountry)return;
+
+if(step===4 && !selectedIssue)return;
+
+
+if(step===2){
+updateProfile();
+}
+
+if(step===5){
+updatePosition();
+}
+
+document.querySelectorAll(".screen")
+.forEach(screen=>{
+screen.classList.remove("active");
+});
+
+
+document.getElementById("screen"+step)
+.classList.add("active");
+
+
+currentStep=step;
+
+updateProgress();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function updateProgress(){
+
+const percent=
+Math.round((currentStep/6)*100);
+
+document.getElementById("progressText")
+.textContent=
+`Step ${currentStep} of 6`;
+
+document.getElementById("progressPercent")
+.textContent=
+percent+"%";
+
+document.getElementById("progressBar")
+.style.width=
+percent+"%";
+
+}
+
+
+/* =========================================================
+MICROPHONE PERMISSION SYSTEM
+========================================================= */
+
+/*
+IMPORTANT:
+
+A webpage cannot start recording without microphone
+permission.
+
+This function explicitly requests permission.
+*/
+
+async function requestMicrophonePermission(){
+
+if(!navigator.mediaDevices ||
+!navigator.mediaDevices.getUserMedia){
+
+showPermissionDenied(
+"Microphone access is not supported by this browser."
+);
+
+return;
+}
+
+
+/*
+Secure context check.
+*/
+
+if(!window.isSecureContext){
+
+showPermissionDenied(
+"Microphone access requires a secure HTTPS webpage."
+);
+
+return;
+}
+
+
+setPermissionLoading();
+
+
+try{
+
+/*
+This is the actual browser permission request.
+
+The browser will show its own microphone permission
+dialog if permission has not already been granted.
+*/
+
+const stream =
+await navigator.mediaDevices.getUserMedia({
+audio:true
+});
+
+
+/*
+Permission granted.
+Keep the stream alive so recording can start
+immediately when the user presses Record.
+*/
+
+microphoneStream=stream;
+
+microphonePermission=true;
+
+showPermissionGranted();
+
+}catch(error){
+
+microphonePermission=false;
+
+handleMicrophoneError(error);
+
+}
+
+}
+
+
+/*
+Checks browser permission status where supported.
+
+This does NOT bypass permission.
+*/
+
+async function checkMicrophonePermission(silent=false){
+
+if(!navigator.permissions){
+
+if(!silent){
+
+showToast(
+"Tap Allow Microphone to continue."
+);
+
+}
+
+return;
+
+}
+
+
+try{
+
+const permission =
+await navigator.permissions.query({
+name:"microphone"
+});
+
+
+if(permission.state==="granted"){
+
+microphonePermission=true;
+
+showPermissionGranted();
+
+}
+
+else if(permission.state==="denied"){
+
+microphonePermission=false;
+
+showPermissionDenied(
+"Microphone access is currently blocked."
+);
+
+}
+
+else{
+
+microphonePermission=false;
+
+if(!silent){
+
+showPermissionDefault();
+
+}
+
+}
+
+
+/*
+Some browsers can notify us if the permission
+changes while the page is open.
+*/
+
+permission.onchange=()=>{
+
+if(permission.state==="granted"){
+
+microphonePermission=true;
+
+showPermissionGranted();
+
+}else{
+
+microphonePermission=false;
+
+showPermissionDefault();
+
+}
+
+};
+
+}catch(error){
+
+if(!silent){
+
+showPermissionDefault();
+
+}
+
+}
+
+}
+
+
+/*
+UI: permission request in progress.
+*/
+
+function setPermissionLoading(){
+
+const box =
+document.getElementById("permissionBox");
+
+box.className="permission-box";
+
+document.getElementById("permissionIcon")
+.textContent="⏳";
+
+document.getElementById("permissionTitle")
+.textContent="Waiting for Microphone Permission";
+
+document.getElementById("permissionText")
+.textContent=
+"Please look for your browser's microphone permission message and choose Allow.";
+
+document.getElementById("permissionBtn")
+.disabled=true;
+
+document.getElementById("checkPermissionBtn")
+.style.display="none";
+
+document.getElementById("recordStatus")
+.textContent=
+"Waiting for microphone permission…";
+
+}
+
+
+/*
+UI: permission granted.
+*/
+
+function showPermissionGranted(){
+
+const box =
+document.getElementById("permissionBox");
+
+box.className=
+"permission-box granted";
+
+document.getElementById("permissionIcon")
+.textContent="🎙️";
+
+document.getElementById("permissionTitle")
+.textContent=
+"Microphone Ready";
+
+document.getElementById("permissionText")
+.textContent=
+"Microphone access has been granted. You can now record your 30–60 second delegate response.";
+
+document.getElementById("permissionBtn")
+.style.display="none";
+
+document.getElementById("checkPermissionBtn")
+.style.display="none";
+
+const recordBtn =
+document.getElementById("recordBtn");
+
+recordBtn.disabled=false;
+
+recordBtn.textContent=
+"🔴 Start Recording";
+
+recordBtn.classList.remove("btn-light");
+
+recordBtn.classList.add("btn-primary");
+
+document.getElementById("micIcon")
+.textContent="🎙️";
+
+document.getElementById("micIcon")
+.classList.add("ready");
+
+document.getElementById("recordStatus")
+.textContent=
+"Microphone ready. Tap Start Recording when you're ready.";
+
+document.getElementById("recordStatus")
+.style.color="#2E8B70";
+
+}
+
+
+/*
+UI: permission denied / blocked.
+*/
+
+function showPermissionDenied(message){
+
+const box =
+document.getElementById("permissionBox");
+
+box.className=
+"permission-box denied";
+
+document.getElementById("permissionIcon")
+.textContent="🚫";
+
+document.getElementById("permissionTitle")
+.textContent=
+"Microphone Access Blocked";
+
+document.getElementById("permissionText")
+.textContent=message;
+
+document.getElementById("permissionBtn")
+.style.display="block";
+
+document.getElementById("permissionBtn")
+.disabled=false;
+
+document.getElementById("permissionBtn")
+.textContent=
+"🎙️ Try Microphone Again";
+
+document.getElementById("checkPermissionBtn")
+.style.display="block";
+
+const recordBtn =
+document.getElementById("recordBtn");
+
+recordBtn.disabled=true;
+
+recordBtn.textContent=
+"🔒 Microphone Permission Required";
+
+recordBtn.classList.remove("btn-primary");
+
+recordBtn.classList.add("btn-light");
+
+document.getElementById("micIcon")
+.textContent="🔒";
+
+document.getElementById("micIcon")
+.classList.remove("ready");
+
+document.getElementById("recordStatus")
+.textContent=
+"Recording is locked until microphone permission is granted.";
+
+document.getElementById("recordStatus")
+.style.color="#D9534F";
+
+}
+
+
+/*
+UI: permission not yet determined.
+*/
+
+function showPermissionDefault(){
+
+const box =
+document.getElementById("permissionBox");
+
+box.className="permission-box";
+
+document.getElementById("permissionIcon")
+.textContent="🔐";
+
+document.getElementById("permissionTitle")
+.textContent=
+"Microphone Permission Needed";
+
+document.getElementById("permissionText")
+.textContent=
+"Before recording, you need to allow this webpage to use your microphone.";
+
+document.getElementById("permissionBtn")
+.style.display="block";
+
+document.getElementById("permissionBtn")
+.disabled=false;
+
+document.getElementById("permissionBtn")
+.textContent=
+"🎙️ Allow Microphone";
+
+document.getElementById("checkPermissionBtn")
+.style.display="none";
+
+document.getElementById("recordBtn")
+.disabled=true;
+
+document.getElementById("recordBtn")
+.textContent=
+"🔐 Allow Microphone First";
+
+}
+
+
+/*
+Handle common browser errors.
+*/
+
+function handleMicrophoneError(error){
+
+console.log("Microphone error:",error);
+
+if(error.name==="NotAllowedError" ||
+error.name==="PermissionDeniedError"){
+
+showPermissionDenied(
+"Your browser did not allow microphone access. Please allow microphone access in your browser settings and try again."
+);
+
+showToast(
+"Microphone permission was not granted."
+);
+
+}
+
+else if(error.name==="NotFoundError"){
+
+showPermissionDenied(
+"No microphone was found on this device. Please connect or enable a microphone and try again."
+);
+
+}
+
+else if(error.name==="NotReadableError"){
+
+showPermissionDenied(
+"The microphone is currently being used by another app or cannot be accessed. Close other apps using the microphone and try again."
+);
+
+}
+
+else if(error.name==="SecurityError"){
+
+showPermissionDenied(
+"Microphone access was blocked for security reasons. Make sure this page is opened using HTTPS."
+);
+
+}
+
+else{
+
+showPermissionDenied(
+"Unable to access the microphone. Please check your browser and device settings."
+);
+
+}
+
+}
+
+
+/* =========================================================
+RECORDING
+========================================================= */
+
+function toggleRecording(){
+
+/*
+Absolute safety check:
+No permission = NO recording.
+*/
+
+if(!microphonePermission ||
+!microphoneStream){
+
+showToast(
+"Please allow microphone access before recording."
+);
+
+requestMicrophonePermission();
+
+return;
+}
+
+
+if(mediaRecorder &&
+mediaRecorder.state==="recording"){
+
+stopRecording();
+
+}else{
+
+startRecording();
+
+}
+
+}
+
+
+function startRecording(){
+
+/*
+Double safety check.
+*/
+
+if(!microphonePermission ||
+!microphoneStream){
+
+showToast(
+"Microphone permission is required."
+);
+
+return;
+}
+
+
+audioChunks=[];
+audioBlob=null;
+
+
+let options={};
+
+if(
+typeof MediaRecorder!=="undefined" &&
+MediaRecorder.isTypeSupported &&
+MediaRecorder.isTypeSupported("audio/webm")
+){
+
+options.mimeType="audio/webm";
+
+}
+
+
+try{
+
+mediaRecorder =
+new MediaRecorder(
+microphoneStream,
+options
+);
+
+}catch(error){
+
+showToast(
+"This browser cannot create an audio recording."
+);
+
+return;
+
+}
+
+
+mediaRecorder.ondataavailable=
+event=>{
+
+if(event.data.size>0){
+
+audioChunks.push(event.data);
+
+}
+
+};
+
+
+mediaRecorder.onstop=()=>{
+
+audioBlob=
+new Blob(
+audioChunks,
+{
+type:
+mediaRecorder.mimeType ||
+"audio/webm"
+}
+);
+
+
+if(audioURL){
+
+URL.revokeObjectURL(audioURL);
+
+}
+
+
+audioURL=
+URL.createObjectURL(audioBlob);
+
+
+const player =
+document.getElementById("audioPlayer");
+
+player.src=audioURL;
+
+player.style.display="block";
+
+
+document.getElementById("recordActions")
+.style.display="flex";
+
+
+if(recordingSeconds<30){
+
+document.getElementById("recordStatus")
+.textContent=
+"Your recording is shorter than 30 seconds. Please record again.";
+
+document.getElementById("recordStatus")
+.style.color="#D9534F";
+
+document.getElementById("finishBtn")
+.disabled=true;
+
+}else{
+
+document.getElementById("recordStatus")
+.textContent=
+"Great! Your 30–60 second response is ready.";
+
+document.getElementById("recordStatus")
+.style.color="#2E8B70";
+
+updateFinishButton();
+
+}
+
+};
+
+
+mediaRecorder.start();
+
+recordingStart=Date.now();
+
+recordingSeconds=0;
+
+document.getElementById("timer")
+.textContent="00:00";
+
+
+document.getElementById("recordBtn")
+.textContent=
+"⏹ Stop Recording";
+
+document.getElementById("recordBtn")
+.classList.remove("btn-primary");
+
+document.getElementById("recordBtn")
+.classList.add("btn-danger");
+
+
+document.getElementById("micIcon")
+.classList.add("recording");
+
+document.getElementById("micIcon")
+.classList.remove("ready");
+
+document.getElementById("recordStatus")
+.textContent=
+"🔴 Recording… Speak clearly and confidently!";
+
+document.getElementById("recordStatus")
+.style.color="#D9534F";
+
+
+document.getElementById("recordActions")
+.style.display="none";
+
+document.getElementById("audioPlayer")
+.style.display="none";
+
+
+timerInterval=
+setInterval(updateTimer,1000);
+
+}
+
+
+/* =========================================================
+TIMER
+========================================================= */
+
+function updateTimer(){
+
+recordingSeconds=
+Math.floor(
+(Date.now()-recordingStart)/1000
+);
+
+
+if(recordingSeconds>=60){
+
+recordingSeconds=60;
+
+stopRecording();
+
+document.getElementById("recordStatus")
+.textContent=
+"60 seconds reached — recording stopped.";
+
+return;
+
+}
+
+
+document.getElementById("timer")
+.textContent=
+formatTime(recordingSeconds);
+
+}
+
+
+function stopRecording(){
+
+if(
+mediaRecorder &&
+mediaRecorder.state==="recording"
+){
+
+mediaRecorder.stop();
+
+}
+
+
+clearInterval(timerInterval);
+
+
+document.getElementById("recordBtn")
+.textContent=
+"🔴 Record Again";
+
+document.getElementById("recordBtn")
+.classList.remove("btn-danger");
+
+document.getElementById("recordBtn")
+.classList.add("btn-primary");
+
+
+document.getElementById("micIcon")
+.classList.remove("recording");
+
+document.getElementById("micIcon")
+.classList.add("ready");
+
+
+document.getElementById("timer")
+.textContent=
+formatTime(recordingSeconds);
+
+}
+
+
+function formatTime(seconds){
+
+const mins=
+Math.floor(seconds/60);
+
+const secs=
+seconds%60;
+
+return String(mins).padStart(2,"0")
++
+":"
++
+String(secs).padStart(2,"0");
+
+}
+
+
+/* =========================================================
+SAVE RECORDING
+========================================================= */
+
+function saveRecording(){
+
+if(!audioBlob){
+
+showToast(
+"Please record your response first."
+);
+
+return;
+
+}
+
+
+const url=
+URL.createObjectURL(audioBlob);
+
+const a=
+document.createElement("a");
+
+a.href=url;
+
+const countryName=
+selectedCountry ?
+selectedCountry.name :
+"Delegate";
+
+a.download=
+"Young_Delegate_"+
+countryName+
+"_Response.webm";
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+setTimeout(()=>{
+URL.revokeObjectURL(url);
+},1000);
+
+
+showToast(
+"Your recording has been saved."
+);
+
+}
+
+
+/* =========================================================
+SHARE
+========================================================= */
+
+async function shareRecording(){
+
+if(!audioBlob){
+
+showToast(
+"Please record your response first."
+);
+
+return;
+
+}
+
+
+const fileName=
+"Young_Delegate_Response.webm";
+
+const file=
+new File(
+[audioBlob],
+fileName,
+{
+type:
+audioBlob.type ||
+"audio/webm"
+}
+);
+
+
+if(
+navigator.canShare &&
+navigator.canShare({
+files:[file]
+})
+){
+
+try{
+
+await navigator.share({
+
+title:"Young Global Delegate",
+
+text:
+"My Mini Model United Nations response",
+
+files:[file]
+
+});
+
+}catch(error){
+
+if(error.name!=="AbortError"){
+
+showToast(
+"Sharing was not completed."
+);
+
+}
+
+}
+
+}
+
+else if(navigator.share){
+
+try{
+
+await navigator.share({
+
+title:"Young Global Delegate",
+
+text:
+"My Mini Model United Nations response"
+
+});
+
+}catch(error){}
+
+}
+
+else{
+
+showToast(
+"Sharing is not supported. Please use Save Recording."
+);
+
+}
+
+}
+
+
+/* =========================================================
+CONSENT
+========================================================= */
+
+function updateFinishButton(){
+
+const consent=
+document.getElementById("guardianConsent")
+.checked;
+
+
+const validRecording=
+audioBlob &&
+recordingSeconds>=30 &&
+recordingSeconds<=60;
+
+
+document.getElementById("finishBtn")
+.disabled=
+!(
+consent &&
+validRecording
+);
+
+}
+
+
+/* =========================================================
+FINISH
+========================================================= */
+
+function finishActivity(){
+
+if(
+!audioBlob ||
+recordingSeconds<30
+){
+
+showToast(
+"Please record a response of at least 30 seconds."
+);
+
+return;
+
+}
+
+
+if(
+!document.getElementById("guardianConsent")
+.checked
+){
+
+showToast(
+"Parent/Guardian consent is required."
+);
+
+return;
+
+}
+
+
+document.getElementById("finalCountry")
+.textContent=
+selectedCountry.name;
+
+
+document.getElementById("finalIssue")
+.textContent=
+selectedIssue.name;
+
+
+goTo(6);
+
+}
+
+
+/* =========================================================
+PUBLIC SUBMISSION
+========================================================= */
+
+function submitForConsideration(){
+
+const consent=
+document.getElementById("guardianConsent")
+.checked;
+
+
+if(!consent){
+
+showToast(
+"Parent/Guardian consent is required before public-use consideration."
+);
+
+return;
+
+}
+
+
+if(!audioBlob){
+
+showToast(
+"Please record your response first."
+);
+
+return;
+
+}
+
+
+const name=
+document.getElementById("studentName")
+.value.trim();
+
+
+const profile=
+document.getElementById("studentClass")
+.value.trim();
+
+
+if(!name){
+
+showToast(
+"Please enter Name first."
+);
+
+return;
+
+}
+
+
+if(!profile){
+
+showToast(
+"Please enter Class / Profile first."
+);
+
+return;
+
+}
+
+
+/*
+DEMO SAFETY:
+
+Nothing is uploaded here.
+
+Connect this function to the school's secure backend
+when you are ready to actually collect submissions.
+*/
+
+showToast(
+"Consent confirmed. Response is ready for school review."
+);
+
+
+setTimeout(()=>{
+
+alert(
+
+"Submission Ready\n\n"+
+"Delegate: "+
+selectedCountry.name+
+"\nIssue: "+
+selectedIssue.name+
+"\nStudent: "+
+name+
+"\nClass/Profile: "+
+profile+
+"\n\n"+
+"This demo does not upload the recording. Connect your school's secure submission system to collect it."
+
+);
+
+},400);
+
+}
+
+
+/* =========================================================
+CERTIFICATE
+========================================================= */
+
+function generateCertificate(){
+
+const name=
+document.getElementById("studentName")
+.value.trim();
+
+const profile=
+document.getElementById("studentClass")
+.value.trim();
+
+
+if(!name){
+
+showToast(
+"Please enter your name."
+);
+
+document.getElementById("studentName")
+.focus();
+
+return;
+
+}
+
+
+if(!profile){
+
+showToast(
+"Please enter your Class / Profile."
+);
+
+document.getElementById("studentClass")
+.focus();
+
+return;
+
+}
+
+
+if(
+!selectedCountry ||
+!selectedIssue
+){
+
+showToast(
+"Complete the activity first."
+);
+
+return;
+
+}
+
+
+const canvas=
+document.createElement("canvas");
+
+canvas.width=1600;
+canvas.height=1100;
+
+const ctx=
+canvas.getContext("2d");
+
+
+/* Background */
+
+const gradient=
+ctx.createLinearGradient(
+0,0,1600,1100
+);
+
+gradient.addColorStop(
+0,
+"#F8FCFF"
+);
+
+gradient.addColorStop(
+1,
+"#E9F4FB"
+);
+
+ctx.fillStyle=gradient;
+
+ctx.fillRect(
+0,0,1600,1100
+);
+
+
+/* Outer border */
+
+ctx.strokeStyle="#123C69";
+
+ctx.lineWidth=18;
+
+ctx.strokeRect(
+40,40,1520,1020
+);
+
+
+ctx.strokeStyle="#F5B942";
+
+ctx.lineWidth=4;
+
+ctx.strokeRect(
+65,65,1470,970
+);
+
+
+/* Decorative circles */
+
+ctx.globalAlpha=.08;
+
+ctx.fillStyle="#1769AA";
+
+ctx.beginPath();
+
+ctx.arc(
+1500,100,240,0,Math.PI*2
+);
+
+ctx.fill();
+
+
+ctx.fillStyle="#F5B942";
+
+ctx.beginPath();
+
+ctx.arc(
+100,1000,220,0,Math.PI*2
+);
+
+ctx.fill();
+
+ctx.globalAlpha=1;
+
+
+/* Top */
+
+ctx.textAlign="center";
+
+ctx.fillStyle="#1769AA";
+
+ctx.font=
+"bold 28px Arial";
+
+ctx.fillText(
+"YOUNG GLOBAL DELEGATES",
+800,
+145
+);
+
+
+/* Certificate title */
+
+ctx.fillStyle="#123C69";
+
+ctx.font=
+"bold 72px Georgia";
+
+ctx.fillText(
+"CERTIFICATE",
+800,
+235
+);
+
+
+ctx.fillStyle="#F5B942";
+
+ctx.fillRect(
+630,
+270,
+340,
+6
+);
+
+
+ctx.fillStyle="#516579";
+
+ctx.font=
+"26px Arial";
+
+ctx.fillText(
+"of Mini Model United Nations Participation",
+800,
+325
+);
+
+
+/* Name */
+
+ctx.fillStyle="#123C69";
+
+ctx.font=
+name.length>28 ?
+"bold 48px Georgia" :
+"bold 58px Georgia";
+
+ctx.fillText(
+name,
+800,
+470
+);
+
+
+ctx.fillStyle="#7A8793";
+
+ctx.font=
+"22px Arial";
+
+ctx.fillText(
+"has successfully completed the Young Global Delegate challenge",
+800,
+530
+);
+
+
+/* Country and issue */
+
+ctx.fillStyle="#123C69";
+
+ctx.font=
+"bold 27px Arial";
+
+ctx.fillText(
+"COUNTRY",
+480,
+640
+);
+
+ctx.fillText(
+"GLOBAL ISSUE",
+1120,
+640
+);
+
+
+ctx.fillStyle="#1769AA";
+
+ctx.font=
+"bold 34px Arial";
+
+ctx.fillText(
+selectedCountry.flag+
+" "+
+selectedCountry.name,
+480,
+690
+);
+
+ctx.fillText(
+selectedIssue.name,
+1120,
+690
+);
+
+
+/* Profile */
+
+ctx.fillStyle="#687887";
+
+ctx.font=
+"24px Arial";
+
+ctx.fillText(
+"Class / Profile: "+profile,
+800,
+780
+);
+
+
+/* Quote */
+
+ctx.fillStyle="#2E8B70";
+
+ctx.font=
+"italic 30px Georgia";
+
+ctx.fillText(
+"“Think globally. Speak confidently. Act together.”",
+800,
+875
+);
+
+
+/* Footer */
+
+ctx.fillStyle="#123C69";
+
+ctx.font=
+"bold 22px Arial";
+
+ctx.fillText(
+"YOUNG GLOBAL DELEGATE",
+800,
+960
+);
+
+
+ctx.fillStyle="#8B98A5";
+
+ctx.font=
+"18px Arial";
+
+ctx.fillText(
+"Mini Model United Nations • School Activity",
+800,
+995
+);
+
+
+/* Download JPG */
+
+const link=
+document.createElement("a");
+
+link.download=
+"Young_Global_Delegate_Certificate.jpg";
+
+link.href=
+canvas.toDataURL(
+"image/jpeg",
+.95
+);
+
+document.body.appendChild(link);
+
+link.click();
+
+link.remove();
+
+
+showToast(
+"Your certificate has been downloaded!"
+);
+
+}
+
+
+/* =========================================================
+RESTART
+========================================================= */
+
+function restartActivity(){
+
+/*
+Stop any active recording.
+*/
+
+if(
+mediaRecorder &&
+mediaRecorder.state==="recording"
+){
+
+mediaRecorder.stop();
+
+}
+
+clearInterval(timerInterval);
+
+
+selectedCountry=null;
+selectedIssue=null;
+
+audioBlob=null;
+
+if(audioURL){
+
+URL.revokeObjectURL(audioURL);
+
+audioURL=null;
+
+}
+
+
+/*
+Keep microphone permission available.
+
+We don't revoke the microphone stream because the user
+may want to record again without another permission prompt.
+*/
+
+recordingSeconds=0;
+
+
+document.getElementById("studentName")
+.value="";
+
+document.getElementById("studentClass")
+.value="";
+
+document.getElementById("guardianConsent")
+.checked=false;
+
+
+document.querySelectorAll(".country")
+.forEach(el=>{
+el.classList.remove("selected");
+});
+
+
+document.querySelectorAll(".issue")
+.forEach(el=>{
+el.classList.remove("selected");
+});
+
+
+document.getElementById("countryNext")
+.disabled=true;
+
+document.getElementById("issueNext")
+.disabled=true;
+
+document.getElementById("finishBtn")
+.disabled=true;
+
+
+document.getElementById("audioPlayer")
+.style.display="none";
+
+document.getElementById("recordActions")
+.style.display="none";
+
+
+document.getElementById("timer")
+.textContent="00:00";
+
+
+if(microphonePermission){
+
+showPermissionGranted();
+
+}else{
+
+showPermissionDefault();
+
+}
+
+
+goTo(1);
+
+}
+
+
+/* =========================================================
+TOAST
+========================================================= */
+
+function showToast(message){
+
+const toast=
+document.getElementById("toast");
+
+toast.textContent=message;
+
+toast.classList.add("show");
+
+clearTimeout(window.toastTimer);
+
+window.toastTimer=
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},3500);
+
+}
+
+
+/* =========================================================
+START
+========================================================= */
+
+init();
+
+</script>
+
+</body>
+</html>
