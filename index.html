@@ -849,13 +849,13 @@ button{
     <div class="logo">🌐 Young Global Delegates</div>
     <h1>Mini Model United Nations</h1>
     <p>
-        Choose a country, understand a global issue and speak like a young world leader.
+        Choose a country, understand its global issue and speak like a young world leader.
     </p>
 </header>
 
 <div class="progress-wrap">
     <div class="progress-top">
-        <span id="progressText">Step 1 of 6</span>
+        <span id="progressText">Step 1 of 5</span>
         <span id="progressPercent">17%</span>
     </div>
 
@@ -939,7 +939,7 @@ Learn a few simple things about the country you represent.
 </button>
 
 <button class="btn btn-primary" onclick="goTo(3)">
-Choose an Issue →
+Prepare My Position →
 </button>
 
 </div>
@@ -954,39 +954,6 @@ STEP 3
 ===================================================== -->
 
 <section class="screen" id="screen3">
-
-<div class="card">
-
-<h2>💡 Choose a Global Issue</h2>
-
-<p class="subtitle">
-Pick one problem that countries around the world can work together to solve.
-</p>
-
-<div class="issue-grid" id="issueGrid"></div>
-
-<div class="actions">
-
-<button class="btn btn-light" onclick="goTo(2)">
-← Back
-</button>
-
-<button class="btn btn-primary" id="issueNext" disabled>
-Prepare My Position →
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-STEP 4
-===================================================== -->
-
-<section class="screen" id="screen4">
 
 <div class="card">
 
@@ -1053,11 +1020,11 @@ You don't need a perfect speech. Speak clearly, confidently and share your idea.
 
 <div class="actions">
 
-<button class="btn btn-light" onclick="goTo(3)">
+<button class="btn btn-light" onclick="goTo(2)">
 ← Back
 </button>
 
-<button class="btn btn-primary" onclick="goTo(5)">
+<button class="btn btn-primary" onclick="goTo(4)">
 🎙️ Go to Recording →
 </button>
 
@@ -1069,10 +1036,10 @@ You don't need a perfect speech. Speak clearly, confidently and share your idea.
 
 
 <!-- =====================================================
-STEP 5
+STEP 4
 ===================================================== -->
 
-<section class="screen" id="screen5">
+<section class="screen" id="screen4">
 
 <div class="card record-card">
 
@@ -1274,7 +1241,7 @@ if selected.
 
 <div class="actions">
 
-<button class="btn btn-light" onclick="goTo(4)">
+<button class="btn btn-light" onclick="goTo(3)">
 ← Back
 </button>
 
@@ -1295,10 +1262,10 @@ Complete My MUN →
 
 
 <!-- =====================================================
-STEP 6
+STEP 5
 ===================================================== -->
 
-<section class="screen" id="screen6">
+<section class="screen" id="screen5">
 
 <div class="card final-card">
 
@@ -1608,46 +1575,8 @@ countryGrid.appendChild(el);
 });
 
 
-const issueGrid =
-document.getElementById("issueGrid");
-
-issues.forEach((issue,index)=>{
-
-const el =
-document.createElement("button");
-
-el.className="issue";
-
-el.innerHTML=`
-
-<div class="issue-icon">${issue.icon}</div>
-
-<h3>${issue.name}</h3>
-
-<p>${issue.desc}</p>
-
-`;
-
-el.onclick=()=>{
-selectIssue(index);
-};
-
-issueGrid.appendChild(el);
-
-});
-
-
 document.getElementById("countryNext").onclick=()=>{
 goTo(2);
-};
-
-
-document.getElementById("issueNext").onclick=()=>{
-
-updatePosition();
-
-goTo(4);
-
 };
 
 
@@ -1703,6 +1632,19 @@ function selectCountry(index){
 
 selectedCountry=countries[index];
 
+/* Use the issue already assigned to the selected country. */
+const normalizeIssueName = value =>
+    value.toLowerCase()
+        .replace(/&/g,"and")
+        .replace(/\bthe\b/g,"")
+        .replace(/\s+/g," ")
+        .trim();
+
+selectedIssue=issues.find(issue =>
+    normalizeIssueName(issue.name) ===
+    normalizeIssueName(selectedCountry.issue)
+) || null;
+
 document.querySelectorAll(".country")
 .forEach((el,i)=>{
 
@@ -1714,29 +1656,6 @@ i===index
 });
 
 document.getElementById("countryNext").disabled=false;
-
-}
-
-
-/* =========================================================
-ISSUE
-========================================================= */
-
-function selectIssue(index){
-
-selectedIssue=issues[index];
-
-document.querySelectorAll(".issue")
-.forEach((el,i)=>{
-
-el.classList.toggle(
-"selected",
-i===index
-);
-
-});
-
-document.getElementById("issueNext").disabled=false;
 
 }
 
@@ -1811,16 +1730,20 @@ function goTo(step){
 
 if(step===2 && !selectedCountry)return;
 
-if(step===3 && !selectedCountry)return;
+if(step===3 && (!selectedCountry || !selectedIssue))return;
 
-if(step===4 && !selectedIssue)return;
+if(step===4 && (!selectedCountry || !selectedIssue))return;
 
 
 if(step===2){
 updateProfile();
 }
 
-if(step===5){
+if(step===3){
+updatePosition();
+}
+
+if(step===4){
 updatePosition();
 }
 
@@ -1849,11 +1772,11 @@ behavior:"smooth"
 function updateProgress(){
 
 const percent=
-Math.round((currentStep/6)*100);
+Math.round((currentStep/5)*100);
 
 document.getElementById("progressText")
 .textContent=
-`Step ${currentStep} of 6`;
+`Step ${currentStep} of 5`;
 
 document.getElementById("progressPercent")
 .textContent=
@@ -2824,7 +2747,7 @@ document.getElementById("finalIssue")
 selectedIssue.name;
 
 
-goTo(6);
+goTo(5);
 
 }
 
@@ -3334,16 +3257,7 @@ el.classList.remove("selected");
 });
 
 
-document.querySelectorAll(".issue")
-.forEach(el=>{
-el.classList.remove("selected");
-});
-
-
 document.getElementById("countryNext")
-.disabled=true;
-
-document.getElementById("issueNext")
 .disabled=true;
 
 document.getElementById("finishBtn")
